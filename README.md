@@ -35,7 +35,7 @@ yarn add -D typescript @types/node ts-node-dev
 {
   "name": "Estudo-Typescript",
   "version": "1.0.0",
-  "main": "index.ts", // Alterar para .ts
+  "main": "index.ts", // Alterar para .ts //
   "repository": "https://github.com/Jean-Dresbach/Estudo-Typescript.git",
   "author": "Jean Dresbach <jeanr.dresbach@gmail.com>",
   "license": "MIT",
