@@ -6,7 +6,7 @@
   "author": "Jean Dresbach <jeanr.dresbach@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn--transpile-only ./src/atividades-em-aula/atividade-aula-09-11-2023/index.ts",
+    "dev": "tsnd --respawn --transpile-only ./src/atividades-classroom/Atividade-Pratica-Typescript/index.ts",
     "build": "tsc"
   },
   "devDependencies": {
