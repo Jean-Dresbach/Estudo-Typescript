@@ -24,7 +24,7 @@ export interface User {
     name: string
     age: number
     occupation: string
-    wage?: number | string
+    wage?: number
 }
 
 export interface Director extends User {

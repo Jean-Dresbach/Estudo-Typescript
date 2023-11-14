@@ -26,14 +26,13 @@ console.log(isApproved(6, 5))
 // Lista com 3 notas: (N1*P1) + (N2*P2) + (N3*P3) / 3 = Resultado
 
 function weightedArithmetic(gradesAndWeightsList: GradeAndWeight[]): void {
-    let dividend: number = 0
-    let divisor: number = 0
+    let dividend = 0
+    let divisor = 0
     
     gradesAndWeightsList.forEach(gradeAndWeight => {
         dividend += gradeAndWeight.grade * gradeAndWeight.weight
         divisor += gradeAndWeight.weight
     })
-
     console.log("Average = " + dividend / divisor)
 }
 
@@ -68,13 +67,13 @@ function walletDraftAndDeposit(wallet: Wallet): string {
     if (wallet.deposit) {
         wallet.balance += wallet.deposit
         return `Depósito executado com êxito. Seu saldo é atual é de ${wallet.balance} reais.`
-    } else if (wallet.draft) {
+    } 
+    if (wallet.draft) {
         if (wallet.draft > wallet.balance) {
             return `Saldo insuficiente. Seu saldo é atual é de ${wallet.balance} reais.`
-        } else {
-            wallet.balance -= wallet.draft
-            return `Saque executado com êxito. Seu saldo é atual é de ${wallet.balance} reais.`
-        }
+        } 
+        wallet.balance -= wallet.draft
+        return `Saque executado com êxito. Seu saldo é atual é de ${wallet.balance} reais.`
     }
 }
 
@@ -87,11 +86,6 @@ console.log(walletDraftAndDeposit({
     balance: 0,
     deposit: 2000
 }))
-console.log(walletDraftAndDeposit({
-    balance: 0,
-    draft: 1500
-}))
-
 
 
 // Atividade 4:
@@ -101,54 +95,83 @@ console.log(walletDraftAndDeposit({
 
 const listProducts: Product[] = [] 
 
-function productCRD(action: ProductCRD): string {
-    if (action.register) {
-        listProducts.push(action.register)
-        return "Produto cadastrado com êxito"
-    } else if (action.listProducts) {
-        let message: string = ""
-        listProducts.forEach(product => {
-            message += `Nome do produto: ${product.productName} - Preço: ${product.price} reais | `
-        })
-        return message
-    } else if (action.deleteProduct) {
-        for (let index: number = 0; index < listProducts.length; index++) {
-            if (listProducts[index].productName === action.deleteProduct.productName && listProducts[index].price === action.deleteProduct.price) {
-                listProducts.splice(index, 1)
-                return `Produto excluído com êxito`
-            } 
-        }
-        return "Produto não encontrado"
+type Action = "register" | "list" | "delete"
+
+function productCRD(action: Action, product?: Product): string {
+    // if (action.register) {
+    //     listProducts.push(action.register)
+    //     return "Produto cadastrado com êxito"
+    // } else if (action.listProducts) {
+    //     let message: string = ""
+    //     listProducts.forEach(product => {
+    //         message += `Nome do produto: ${product.productName} - Preço: ${product.price} reais | `
+    //     })
+    //     return message
+    // } else if (action.deleteProduct) {
+    //     for (let index: number = 0; index < listProducts.length; index++) {
+    //         if (listProducts[index].productName === action.deleteProduct.productName && listProducts[index].price === action.deleteProduct.price) {
+    //             listProducts.splice(index, 1)
+    //             return `Produto excluído com êxito`
+    //         } 
+    //     }
+    //     return "Produto não encontrado"
+    // }
+
+    switch (action) {
+        case "register":
+            listProducts.push(product)
+            return "Produto cadastrado com êxito";
+        case "list":
+            let message: string = ""
+            listProducts.forEach(product => message += `Nome do produto: ${product.productName} - Preço: ${product.price} reais | `)
+            return message;
+        case "delete":
+            const index = listProducts.findIndex(p => p === product)
+
+            if (index === -1) {
+                return "Produto não encontrado"
+            }
+            listProducts.splice(index, 1)
+            return `Produto excluído com êxito`;
+    
+        default:
+            return `Opção inválida!`;
     }
 }
 
 console.log("------- Atividade 4 -------")
-console.log(productCRD(
-    {
-        register: {
-            productName: "Laranja",
-            price: 2
-        }
-    }
-))
-console.log(productCRD(
-    {
-        register: {
-            productName: "Mamão",
-            price: 7
-        }
-    }
-))
-console.log(productCRD({listProducts: true}))
-console.log(productCRD(
-    {
-        deleteProduct: {
-            productName: "Laranja",
-            price: 2
-        }
-    }
-))
-console.log(productCRD({listProducts: true}))
+// console.log(productCRD(
+//     {
+//         register: {
+//             productName: "Laranja",
+//             price: 2
+//         }
+//     }
+// ))
+// console.log(productCRD(
+//     {
+//         register: {
+//             productName: "Mamão",
+//             price: 7
+//         }
+//     }
+// ))
+// console.log(productCRD({listProducts: true}))
+// console.log(productCRD(
+//     {
+//         deleteProduct: {
+//             productName: "Laranja",
+//             price: 2
+//         }
+//     }
+// ))
+// console.log(productCRD({listProducts: true}))
+console.log(productCRD("register", { productName: "Mamão", price: 7 }))
+console.log(productCRD("list"))
+console.log(productCRD("delete", listProducts[0]))
+console.log(productCRD("list"))
+// console.log(productCRD())
+
 
 
 
@@ -162,7 +185,7 @@ console.log(productCRD({listProducts: true}))
 // b. “Daphne, 23 anos, analista de TI, salário N/A”
 
 function showUserInfo(user: User): void {
-    console.log(`${user.name}, ${user.age} anos, ${user.occupation}, salário R$ ${user.wage ? user.wage : "N/A"}`)
+    console.log(`${user.name}, ${user.age} anos, ${user.occupation}, salário R$ ${user.wage ?? "N/A"}`)
 }
 
 console.log("------- Atividade 5 -------")
@@ -194,7 +217,7 @@ showUserInfo(
 // b. “Diretor(a) Daphne, 23 anos, comissão nível 5, salário N/A”
 
 function showDirectorInfo(director: Director): void {
-    console.log(`Diretor(a) ${director.name}, ${director.age} anos, ${director.occupation}, comissão nível: ${director.commission}, salário R$ ${director.wage ? director.wage : "N/A"}`)
+    console.log(`Diretor(a) ${director.name}, ${director.age} anos, ${director.occupation}, comissão nível: ${director.commission}, salário R$ ${director.wage?.toFixed(2) || "N/A"}`)
 }
 
 console.log("------- Atividade 6 -------")
@@ -242,13 +265,7 @@ const companyMemberList: CompanyMember[] = [
 ]
 
 function showCompanyMembersInfo(mebers: CompanyMember[]): void {
-    mebers.forEach(member => {
-        if ("commission" in member) {
-            console.log(`Diretor(a) ${member.name}, ${member.age} anos, ${member.occupation}, comissão nível: ${member.commission}, salário R$ ${member.wage ? member.wage : "N/A"}`)
-        } else {
-            console.log(`${member.name}, ${member.age} anos, ${member.occupation}, salário R$ ${member.wage ? member.wage : "N/A"}`)
-        }
-    })
+    mebers.forEach(member => "commission" in member ? showDirectorInfo(member) : showUserInfo(member))
 }
 
 console.log("------- Atividade 7 -------")
