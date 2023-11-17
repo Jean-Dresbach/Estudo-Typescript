@@ -1,7 +1,5 @@
 // Atividade 1
 
-import { type } from "os";
-
 // Crie uma classe Contador, que encapsule um valor usado para
 // contagem de itens ou eventos. A classe deve oferecer métodos que
 // devem:
@@ -10,26 +8,20 @@ import { type } from "os";
 // c) Retornar o valor do contador.
 
 class Counter {
-    value: string
-    counter = 0
-
-    constructor(value: string) {
-        this.value = value
-        this.counter
-    }
+    constructor(private value: string, private counter = 0) {}
 
     reset() {
         this.counter = 0;
-        console.log("Contador zerado. Contador: ", this.counter)
+        console.log("Contador zerado. Contador:", this.counter)
     }
 
     increase(increment: number) {
         this.counter += increment
-        console.log("Contador incrementado. Contador: ", this.counter)
+        console.log("Contador incrementado. Contador:", this.counter)
     }
 
     returnValue() {
-        console.log("Contador: ", this.counter)
+        console.log("Contador:", this.counter)
     }
 }
 
@@ -53,15 +45,7 @@ item1.reset()
 //      ii. Mostrar cor
 
 class Ball {
-    color: string
-    circumference: string
-    material: string
-    
-    constructor(color: string, circumference: string, material: string) {
-        this.color = color
-        this.circumference = circumference
-        this.material = material
-    }
+    constructor(private color: string, private circumference: string, private material: string) {}
 
     changeColor(newColor: string) {
         this.color = newColor
@@ -83,7 +67,6 @@ basketBall.showColor()
 
 // Atividade 3
 
-
 // Crie uma classe para implementar uma conta corrente. A classe
 // deve possuir os seguintes atributos:
 //      a. Número da conta
@@ -98,15 +81,7 @@ basketBall.showColor()
 // negativo.
 
 class CurrentAccount {
-    accountNumber: number
-    accountHolder: string
-    balance: number
-
-    constructor(accountNumber: number, accountHolder: string, balance?: number) {
-        this.accountNumber = accountNumber
-        this.accountHolder = accountHolder
-        this.balance = balance | 0
-    }
+    constructor(private accountNumber: number, private accountHolder: string, private balance = 0) {}
 
     changeHolderName(newName: string) {
         this.accountHolder = newName
@@ -153,29 +128,30 @@ holder1.draft(1500.45546)
 // c. Esta classe deve conter uma ação para visualizar o histórico.
 
 class Calculator {
-    historic: string[]
-
-    constructor() {
-        this.historic = []
-    }
+    private historic: string[] = []
 
     addition(value1: number, value2: number) {
-        if (value2 < 0) console.log()
         const saveCalc = `${value1} + ${value2 < 0 ? "("+ value2 +")" : value2} = ${value1 + value2}`
         this.historic.push(saveCalc)
         console.log(saveCalc)
     }
 
     subtraction(value1: number, value2: number) {
-
+        const saveCalc = `${value1} - ${value2 < 0 ? "("+ value2 +")" : value2} = ${value1 - value2}`
+        this.historic.push(saveCalc)
+        console.log(saveCalc)
     }
 
     division(value1: number, value2: number) {
-
+        const saveCalc = `${value1} / ${value2 < 0 ? "("+ value2 +")" : value2} = ${value1 / value2}`
+        this.historic.push(saveCalc)
+        console.log(saveCalc)
     }
 
     multiplication(value1: number, value2: number) {
-
+        const saveCalc = `${value1} * ${value2 < 0 ? "("+ value2 +")" : value2} = ${value1 * value2}`
+        this.historic.push(saveCalc)
+        console.log(saveCalc)
     }
 
     showHistoric() {
@@ -185,5 +161,78 @@ class Calculator {
 
 console.log("---------- Atividade 4 ----------")
 const calculator = new Calculator
-calculator.addition(0,-4)
+calculator.addition(0, -4)
+calculator.subtraction(2, -2)
+calculator.division(25, 5)
+calculator.multiplication(-10, 50)
 calculator.showHistoric()
+
+
+
+// Atividade 5
+
+// Faça um programa completo utilizando classes e métodos que:
+//     a. Possua uma classe chamada BombaCombustivel, com no
+//     mínimo esses atributos:
+//         i. tipoCombustivel
+//         ii. valorLitro
+//         iii. quantidadeCombustivel
+//     b. Possua no mínimo esses métodos:
+//         i. abastecerPorValor() – método onde é informado o
+//         valor a ser abastecido e mostra a quantidade de litros
+//         que foi colocada no veículo
+//         ii. abastecerPorLitro() – método onde é informado a
+//         quantidade em litros de combustível e mostra o valor a
+//         ser pago pelo cliente.
+//         iii. alterarValor() – altera o valor do litro do combustível.
+//         iv. alterarCombustivel() – altera o tipo do combustível.
+//         v. alterarQuantidadeCombustivel() – altera a
+//         quantidade de combustível restante na bomba.
+
+// OBS: Sempre que acontecer um abastecimento é necessário
+// atualizar a quantidade de combustível total na bomba. Não deve ser
+// possível abastecer se não tiver gasolina suficiente na bomba.
+
+class FuelPump {
+    constructor(private fuelType: string, private valuePerLiter: number, private amountOfFuelStored: number, private limitOfFuelStored = 20000) {}
+
+    fuelByValue(value: number): void {
+        const amountOfFuelBought = value / this.valuePerLiter
+        
+        if (this.amountOfFuelStored < amountOfFuelBought) console.log("Quantidade de insuficiente de gasolina na bomba!")
+        else {
+            this.amountOfFuelStored -= amountOfFuelBought
+            console.log(`A quantidade total de gasolina ${this.fuelType} abastecida foi de ${amountOfFuelBought.toFixed(2)} litros`)
+        } 
+    }
+
+    fuelByLiter(liters: number) {
+        if (this.amountOfFuelStored < liters) console.log("Quantidade de insuficiente de gasolina na bomba!")
+        else {
+            this.amountOfFuelStored -= liters
+            console.log(`O valor da compra é de R$ ${(liters * this.valuePerLiter).toFixed(2)}`)
+        }
+    }
+
+    changeValuePerLiter(newValuePerLiter: number) {
+        if (newValuePerLiter <= 0) console.log("Valor inválido!! Necessário digitar um valor maior que zero.")
+        else {
+            this.valuePerLiter = newValuePerLiter
+            console.log(`Valor por litro da gasolina ${this.fuelType} alterado com sucesso!`)
+        }
+    }
+
+    changeFuelType(newFuelType: string) {
+        newFuelType ? console.log(`O tipo combustível foi alterado com sucesso para ${this.fuelType = newFuelType}`) : console.log("Tipo de gasolina inválido!")
+    }
+
+    changeAmountOfFuelStored(liters: number) {
+        if (this.amountOfFuelStored < liters)
+
+    }
+}
+
+console.log("---------- Atividade 5 ----------")
+const fuelPump = new FuelPump("Diesel", 6.1, 100)
+
+fuelPump.changeFuelType("Etanol")
