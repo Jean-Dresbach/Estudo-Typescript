@@ -8,6 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true, 
   },
-  "include": ["src/atividades-em-aula/**/*.ts"],
+  "include": ["src/atividades-classroom/**/*.ts"],
   "exclude": ["./node_modules"]
 }
