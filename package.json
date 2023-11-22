@@ -6,7 +6,7 @@
   "author": "Jean Dresbach <jeanr.dresbach@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only ./src/atividades-classroom/Atividade-Pratica-Modelagem-de-Classes/index.ts",
+    "dev": "tsnd --respawn --transpile-only ./src/atividades-classroom/Atividade-Pratica-Pilares-POO/index.ts",
     "build": "tsc"
   },
   "devDependencies": {

@@ -12,16 +12,16 @@ export class Counter {
 
     reset() {
         this.counter = 0;
-        console.log("Contador zerado. Contador:", this.counter)
+        console.log(`Contador de ${this.value} zerado`)
     }
 
-    increase(increment: number) {
+    increase(increment: number = 1) {
         this.counter += increment
-        console.log("Contador incrementado. Contador:", this.counter)
+        console.log(`O novo número de ${this.value}(s) é de ${this.counter}`)
     }
 
     returnValue() {
-        console.log("Contador:", this.counter)
+        console.log(`A quantidade de ${this.value}(s) é de ${this.counter}`)
     }
 }
 
