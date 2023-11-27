@@ -178,15 +178,15 @@ class ItemPedido implements ValorPedido, Desconto {
     }
 }
 
-class Pedido extends ItemPedido {
+class Pedido {
     itens: ItemPedido[] = [];
 
     add(item: ItemPedido): void {
         this.itens.push(item);
     }
 
-    removeItem(item: string): void {
-        const index = this.itens.findIndex((i) => i.nome === item);
+    removeItem(item: ItemPedido): void {
+        const index = this.itens.findIndex((i) => i.nome === item.nome);
         if (index > -1) {
             this.itens.splice(index, 1);
         }
@@ -204,4 +204,18 @@ class Pedido extends ItemPedido {
 
 console.log("--------- Atividade 5 ---------")
 
+const ITEM1 = new ItemPedido(15, "Hambúrguer", 5)
+console.log(ITEM1.recuperarValorTotal())
+ITEM1.aplicarDescontoEmPorcentagem(20)
+console.log(ITEM1.recuperarValorTotal())
+const ITEM2 = new ItemPedido(6.5, "Refrigerante", 5)
+console.log(ITEM2.recuperarValorTotal())
+ITEM2.aplicarDescontoEmReais(2)
+console.log(ITEM2.recuperarValorTotal())
+
 const pedido = new Pedido()
+pedido.add(ITEM1)
+pedido.add(ITEM2)
+console.log(pedido.recuperarValorTotal())
+pedido.removeItem(ITEM1)
+console.log(pedido.recuperarValorTotal())
